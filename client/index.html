@@ -61,7 +61,11 @@
         }
       }
     
-      createGoBoard();
+      document.onreadystatechange = function () {
+        if (document.readyState === "complete") {
+          createGoBoard();
+        }
+      }
     
       function checkCountinuous(arr) {
         var maxChain = 0;
