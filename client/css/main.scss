@@ -1,0 +1,37 @@
+
+.omok_table {
+  margin: auto;
+  width: 50rem;
+  height: 50rem;
+}
+
+.go-row {
+  float: left;
+}
+
+.go-cell {
+  float: left;
+  height: 3rem;
+  width: 3rem;
+  padding: 0;
+  background-image: image-url("go.png");
+  background-repeat: no-repeat;
+  background-size:contain;
+  background-position:center;
+}
+
+.stone {
+  width: 2rem;
+  height: 2rem;
+  border-radius: 100%;
+  border: none;
+  margin-top: 0.5rem;
+}
+
+.semi_black {
+  background-color: rgba(0,0,0,0.5);
+}
+
+.semi_white {
+  background-color: rgba(255,255,255,0.5);
+}

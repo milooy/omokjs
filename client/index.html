@@ -1,0 +1,194 @@
+<!doctype html>
+<html lang="en" ng-app>
+  <head>
+    <title>OMOK</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">    
+    <link rel="stylesheet" href="/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+
+  </head>
+  
+  
+  
+  <body>
+   <div class="container-fluid">
+    <div class="row">
+      <div class="col s12 center">
+          <h1>초간단 오목 만들기</h1>
+        </div>
+    
+        <!-- go-board -->
+        <div class="col s12 center">
+          <div class="omok_table">
+    
+          </div>
+        </div>
+      </div>
+    </div>
+    
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+    
+    
+    
+    
+    <script>
+      var flag = 0; // 0 is black, 1 is white
+      var game = 'isGoing';
+    
+    
+      function createGoBoard() {
+        for (var k = 0; k < 16; k++) {
+          var divOuter = document.createElement('div');
+          divOuter.id = k;
+          divOuter.className = "go-row";
+    
+          for (var l = 0; l < 16; l++) {
+            var divInner = document.createElement('div');
+            divInner.id = k + "_" + l;
+            divInner.className = 'go-cell';
+            divInner.setAttribute("data-occupied", "false");
+            divInner.setAttribute("onclick", "putStone(this)");
+            divInner.setAttribute("onmouseenter", "putSemiStone(this)");
+            divInner.setAttribute("onmouseleave", "removeSemiStone(this)");
+            divOuter.appendChild(divInner);
+    
+          }
+    
+          var temp = document.createElement('br');
+          divOuter.appendChild(temp);
+          document.getElementsByClassName("omok_table")[0].appendChild(divOuter);
+        }
+      }
+    
+      createGoBoard();
+    
+      function checkCountinuous(arr) {
+        var maxChain = 0;
+        var currentChecker = 'black';
+        arr.forEach(function(x) {
+          if (x === 'black stone' && currentChecker === 'black') { maxChain++; }
+          if (x === 'black stone' && currentChecker === 'white') {
+            currentChecker = 'black';
+            maxChain = 1;
+          }
+          if (x === 'white stone' && currentChecker === 'white') { maxChain++; }
+          if (x === 'white stone' && currentChecker === 'black') {
+            currentChecker = 'white';
+            maxChain = 1;
+          }
+          if (maxChain === 5) {
+            game = 'over';
+          }
+        });
+      }
+    
+      function checkPositiveDiagonal(intercept) {
+        var arr = [];
+        var i, j;
+        if (intercept >= 16) {
+          i = intercept - 15;
+          j = 15;
+        } else {
+          i = 0;
+          j = intercept;
+        }
+        while(i < Math.min(16, intercept)) {
+          arr.push(document.getElementById(i + '_' + j));
+          i++;
+          j--;
+        }
+        console.log(arr);
+        arr = arr.map(function(x) { return x.dataset.occupied; });
+        checkCountinuous(arr);
+      }
+    
+      function checkNegativeDiagonal(intercept) {
+        var arr = [];
+        var i, j;
+        if (intercept >= 0) {
+          i = Math.abs(intercept);
+          j = 0;
+        } else {
+          i = 0;
+          j = Math.abs(intercept);
+        }
+        while(Math.max(i,j) < 16) {
+          arr.push(document.getElementById(i + '_' + j));
+          i++;
+          j++;
+        }
+        arr = arr.map(function(x) { return x.dataset.occupied; });
+        checkCountinuous(arr);
+      }
+    
+      function checkVertical(j) {
+        var arr = [];
+        var i = 0;
+        while(i < 16) {
+          arr.push(document.getElementById(i + '_' + j));
+          i++;
+        }
+        arr = arr.map(function(x) { return x.dataset.occupied; });
+        checkCountinuous(arr);
+      }
+    
+      function checkHorizon(i) {
+        var arr = Array.from(document.getElementById(i).children)
+        arr = arr.map(function(x) { return x.dataset.occupied; });
+        checkCountinuous(arr);
+      }
+    
+      function isOver(i,j) {
+        checkHorizon(i);
+        checkVertical(j);
+        checkNegativeDiagonal(i-j);
+        checkPositiveDiagonal(parseInt(i)+parseInt(j));
+        if (game === 'over') {
+          alert(which_stone() + '이 이겼습니다!');
+        }
+      }
+    
+      function which_stone() {
+        arr = ['black', 'white'];
+        return arr[flag % 2] + ' stone';
+      }
+    
+      function putStone(elem) {
+        if (elem.dataset.occupied === "false" && game === "isGoing") {
+          var child = elem.children[0];
+          var stone = document.createElement("button");
+          stone.className = which_stone();
+          elem.removeChild(child);
+          elem.appendChild(stone);
+          elem.dataset.occupied = which_stone();
+          var arr = elem.id.split("_");
+          isOver(arr[0], arr[1]);
+          flag++;
+        }
+      }
+    
+      function putSemiStone(elem) {
+        if (elem.dataset.occupied === "false" && game === "isGoing") {
+          var semi_stone = document.createElement("button");
+          semi_stone.className = 'semi_' + which_stone();
+          elem.appendChild(semi_stone);
+        }
+      }
+    
+      function removeSemiStone(elem) {
+        if (elem.dataset.occupied === "false" && game === "isGoing") {
+          var child = elem.children[0];
+          elem.removeChild(child);
+        }
+      }
+      
+      
+      
+      
+      
+    </script>
+
+
+  </body>
+</html>
