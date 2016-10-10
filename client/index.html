@@ -1,48 +1,53 @@
 <!doctype html>
+<!-- Copyright (C) 남형걸, 진겸 - All Rights Reserved
+Unauthorized copying of this file, via any medium is strictly prohibited
+Proprietary and confidential
+Written by 남형걸, 진겸 <tost8295@gmail.com>, Octobor 2016
+-->
 <html lang="en" ng-app>
   <head>
-    <title>OMOK</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">    
+    <title>오목</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
     <link rel="stylesheet" href="/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/main.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
   </head>
-  
-  
-  
+
+
+
   <body>
    <div class="container-fluid">
     <div class="row">
       <div class="col s12 center">
           <h1>초간단 오목 만들기</h1>
         </div>
-    
-        <!-- go-board -->
+
+        <!-- This division is for the creation of the Go Board -->
         <div class="col s12 center">
           <div class="omok_table">
-    
+
           </div>
         </div>
       </div>
     </div>
-    
+
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-    
-    
-    
-    
+
+
+
+
     <script>
       var flag = 0; // 0 is black, 1 is white
       var game = 'isGoing';
-    
-    
+
+
       function createGoBoard() {
         for (var k = 0; k < 16; k++) {
           var divOuter = document.createElement('div');
           divOuter.id = k;
           divOuter.className = "go-row";
-    
+
           for (var l = 0; l < 16; l++) {
             var divInner = document.createElement('div');
             divInner.id = k + "_" + l;
@@ -52,21 +57,21 @@
             divInner.setAttribute("onmouseenter", "putSemiStone(this)");
             divInner.setAttribute("onmouseleave", "removeSemiStone(this)");
             divOuter.appendChild(divInner);
-    
+
           }
-    
+
           var temp = document.createElement('br');
           divOuter.appendChild(temp);
           document.getElementsByClassName("omok_table")[0].appendChild(divOuter);
         }
       }
-    
+
       document.onreadystatechange = function () {
         if (document.readyState === "complete") {
           createGoBoard();
         }
       }
-    
+
       function checkCountinuous(arr) {
         var maxChain = 0;
         var currentChecker = 'black';
@@ -86,7 +91,7 @@
           }
         });
       }
-    
+
       function checkPositiveDiagonal(intercept) {
         var arr = [];
         var i, j;
@@ -106,7 +111,7 @@
         arr = arr.map(function(x) { return x.dataset.occupied; });
         checkCountinuous(arr);
       }
-    
+
       function checkNegativeDiagonal(intercept) {
         var arr = [];
         var i, j;
@@ -125,7 +130,7 @@
         arr = arr.map(function(x) { return x.dataset.occupied; });
         checkCountinuous(arr);
       }
-    
+
       function checkVertical(j) {
         var arr = [];
         var i = 0;
@@ -136,13 +141,13 @@
         arr = arr.map(function(x) { return x.dataset.occupied; });
         checkCountinuous(arr);
       }
-    
+
       function checkHorizon(i) {
         var arr = Array.from(document.getElementById(i).children)
         arr = arr.map(function(x) { return x.dataset.occupied; });
         checkCountinuous(arr);
       }
-    
+
       function isOver(i,j) {
         checkHorizon(i);
         checkVertical(j);
@@ -152,12 +157,12 @@
           alert(which_stone() + '이 이겼습니다!');
         }
       }
-    
+
       function which_stone() {
         arr = ['black', 'white'];
         return arr[flag % 2] + ' stone';
       }
-    
+
       function putStone(elem) {
         if (elem.dataset.occupied === "false" && game === "isGoing") {
           var child = elem.children[0];
@@ -171,7 +176,7 @@
           flag++;
         }
       }
-    
+
       function putSemiStone(elem) {
         if (elem.dataset.occupied === "false" && game === "isGoing") {
           var semi_stone = document.createElement("button");
@@ -179,18 +184,18 @@
           elem.appendChild(semi_stone);
         }
       }
-    
+
       function removeSemiStone(elem) {
         if (elem.dataset.occupied === "false" && game === "isGoing") {
           var child = elem.children[0];
           elem.removeChild(child);
         }
       }
-      
-      
-      
-      
-      
+
+
+
+
+
     </script>
 
 
