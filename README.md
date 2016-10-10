@@ -20,7 +20,9 @@
 ## Skeleton Code
 * client/index.html 로 들어가서 script 와 html 을 적절히 조절하여 만든다.
 
-* 이미 바둑판 배열은 <div> 로 짜여져 있다.
+* 이미 바둑판 배열은 javacript 로 짜여져 있다.
+* 기본 js 함수인 `createElement` 를 이용하여 `<div>`를 생성했다.
+* 각 `<div>`에 있는 `id`와 `class` 그리고 `eventhandler` 들을 잘 이용한다.
 
 * 바둑돌은 하단 4개의 코드를 사용한다.
 ```{.html}
