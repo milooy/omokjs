@@ -41,7 +41,7 @@
 
 
 ### Copyrights
-* This project is made for the education session for the Likelion Curruculum team
+* This project was originally made for the education session of the Likelion Curruculum Design Team, but anyone who is interested in testing their abilities for manipulating the DOM with Javascript, you are welcome to test yourself.
 * Unauthorized copying of this file, via any medium is strictly prohibited
 * Proprietary and confidential.
 * Written by 남형걸, 진겸 <tost8295@gmail.com>, October 2016
