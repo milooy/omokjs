@@ -5,143 +5,161 @@ Proprietary and confidential
 Written by 남형걸, 진겸 <tost8295@gmail.com>, Octobor 2016
 -->
 <html lang="en" ng-app>
-  <head>
-    <title>오목</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
-    <link rel="stylesheet" href="/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/css/main.css">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
+<head>
+  <title>오목</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/css/materialize.min.css">
+  <link rel="stylesheet" href="/css/bootstrap.min.css">
+  <link rel="stylesheet" href="/css/main.css">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/0.97.5/js/materialize.min.js"></script>
 
-  </head>
+</head>
 
 
 
-  <body>
-   <div class="container-fluid">
+<body>
+  <div class="container-fluid">
     <div class="row">
       <div class="col s12 center">
-          <h1>오목 만들기 게임</h1>
-        </div>
+        <h1>오목 만들기 게임</h1>
+      </div>
 
-        <!-- This division is for the creation of the Go Board -->
-        <div class="col s12 center">
-          <div class="omok_table">
+      <!-- This division is for the creation of the Go Board -->
+      <div class="col s12 center">
+        <div class="omok_table">
 
-          </div>
         </div>
       </div>
     </div>
+  </div>
 
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-
-
-
-
-    <script>
-      var flag = 0; // 0 is black, 1 is white
-      var game = 'isGoing';
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
 
-      function createGoBoard() {
-        for (var k = 0; k < 16; k++) {
-          var divOuter = document.createElement('div');
-          divOuter.id = k;
-          divOuter.className = "go-row";
-
-          for (var l = 0; l < 16; l++) {
-            var divInner = document.createElement('div');
-            divInner.id = k + "_" + l;
-            divInner.className = 'go-cell';
-            divInner.setAttribute("data-occupied", "false");
-            divInner.setAttribute("onclick", "putStone(this)");
-            divInner.setAttribute("onmouseenter", "putSemiStone(this)");
-            divInner.setAttribute("onmouseleave", "removeSemiStone(this)");
-            divOuter.appendChild(divInner);
-
-          }
-
-          var temp = document.createElement('br');
-          divOuter.appendChild(temp);
-          document.getElementsByClassName("omok_table")[0].appendChild(divOuter);
-        }
-      }
-
-      document.onreadystatechange = function () {
-        if (document.readyState === "complete") {
-          createGoBoard();
-        }
-      }
 
 
-      function checkCountinuous(arr) {
-//      TODO : misson 2
+  <script>
+  var flag = 0; // 0 is black, 1 is white
+  var game = 'isGoing';
+
+
+  function createGoBoard() {
+    for (var k = 0; k < 16; k++) {
+      var divOuter = document.createElement('div');
+      divOuter.id = k;
+      divOuter.className = "go-row";
+
+      for (var l = 0; l < 16; l++) {
+        var divInner = document.createElement('div');
+        divInner.id = k + "_" + l;
+        divInner.className = 'go-cell';
+        divInner.setAttribute("data-occupied", "false");
+        divInner.setAttribute("onclick", "putStone(this)");
+        divInner.setAttribute("onmouseenter", "putSemiStone(this)");
+        divInner.setAttribute("onmouseleave", "removeSemiStone(this)");
+        divOuter.appendChild(divInner);
 
       }
 
+      var temp = document.createElement('br');
+      divOuter.appendChild(temp);
+      document.getElementsByClassName("omok_table")[0].appendChild(divOuter);
+    }
+  }
+
+  document.onreadystatechange = function () {
+    if (document.readyState === "complete") {
+      createGoBoard();
+    }
+  }
 
 
-      function checkPositiveDiagonal(intercept) {
-//      TODO : misson 2
+  function checkCountinuous(arr) {
+    //      TODO : misson 2
 
-        checkCountinuous(arr);
+  }
+
+
+
+  function checkPositiveDiagonal(intercept) {
+    //      TODO : misson 2
+
+    checkCountinuous(arr);
+  }
+
+
+
+  function checkNegativeDiagonal(intercept) {
+    //      TODO : misson 2
+
+    checkCountinuous(arr);
+  }
+
+
+  function checkVertical(j) {
+    //      TODO : misson 2
+
+    checkCountinuous(arr);
+  }
+
+
+  function checkHorizon(i) {
+    //      TODO : misson 2
+
+    checkCountinuous(arr);
+  }
+
+
+  function isOver(i,j) {
+    //      TODO : misson 2
+
+  }
+
+
+  function which_stone() {
+    arr = ['black', 'white'];
+    return arr[flag % 2] + ' stone';
+  }
+
+
+
+  function putStone(elem) {
+    //      TODO : misson 1
+    for (var i = 0; i < elem.childNodes.length; i++) {
+      if (['black stone', 'white stone'].indexOf(elem.childNodes[i].className)<0) {
+        var stone = document.createElement('button');
+        stone.className = which_stone();
+        elem.appendChild(stone);
+        flag++;
+        break;
       }
+    }
+  }
 
 
+  function putSemiStone(elem) {
+    //      TODO : misson 1
+    console.log(elem.getAttribute('id'));
+    if(!elem.hasChildNodes()) {
+      var semiStone = document.createElement('button');
+      semiStone.className = 'semi_'+which_stone();
+      elem.appendChild(semiStone);
+    }
+  }
 
-      function checkNegativeDiagonal(intercept) {
-//      TODO : misson 2
 
-        checkCountinuous(arr);
+  function removeSemiStone(elem) {
+    //      TODO : misson 1
+    for (var i = 0; i < elem.childNodes.length; i++) {
+      if (['semi_black stone', 'semi_white stone'].indexOf(elem.childNodes[i].className)>=0) {
+        elem.removeChild(elem.childNodes[i]);
+        break;
       }
+    }
+  }
 
 
-      function checkVertical(j) {
-//      TODO : misson 2
-
-        checkCountinuous(arr);
-      }
+  </script>
 
 
-      function checkHorizon(i) {
-//      TODO : misson 2
-        
-        checkCountinuous(arr);
-      }
-
-
-      function isOver(i,j) {
-//      TODO : misson 2
-
-      }
-
-
-      function which_stone() {
-        arr = ['black', 'white'];
-        return arr[flag % 2] + ' stone';
-      }
-
-
-
-      function putStone(elem) {
-//      TODO : misson 1
-
-      }
-
-
-      function putSemiStone(elem) {
-//      TODO : misson 1
-
-      }
-
-
-      function removeSemiStone(elem) {
-//      TODO : misson 1
-
-      }
-
-
-    </script>
-
-
-  </body>
+</body>
 </html>
