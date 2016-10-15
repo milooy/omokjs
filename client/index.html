@@ -123,23 +123,19 @@ Written by 남형걸, 진겸 <tost8295@gmail.com>, Octobor 2016
 
 
   function putStone(elem) {
-    //      TODO : misson 1
-    for (var i = 0; i < elem.childNodes.length; i++) {
-      if (['black stone', 'white stone'].indexOf(elem.childNodes[i].className)<0) {
+    //TODO : misson 1
+    if (checkStone(elem)=='semi_stone') {
         var stone = document.createElement('button');
         stone.className = which_stone();
         elem.appendChild(stone);
         flag++;
-        break;
       }
-    }
   }
 
 
   function putSemiStone(elem) {
-    //      TODO : misson 1
-    console.log(elem.getAttribute('id'));
-    if(!elem.hasChildNodes()) {
+    //TODO : misson 1
+    if (checkStone(elem)=='empty') {
       var semiStone = document.createElement('button');
       semiStone.className = 'semi_'+which_stone();
       elem.appendChild(semiStone);
@@ -149,16 +145,42 @@ Written by 남형걸, 진겸 <tost8295@gmail.com>, Octobor 2016
 
   function removeSemiStone(elem) {
     //      TODO : misson 1
-    for (var i = 0; i < elem.childNodes.length; i++) {
-      if (['semi_black stone', 'semi_white stone'].indexOf(elem.childNodes[i].className)>=0) {
-        elem.removeChild(elem.childNodes[i]);
-        break;
-      }
+    if (checkStone(elem)=='semi_stone') {
+      elem.removeChild(elem.childNodes[0]);
     }
   }
 
-
+  function checkStone(elem) {
+    var childClass = elem.firstChild? elem.firstChild.className : 'empty';
+    switch(childClass) {
+      case 'black stone':
+      case 'white stone':
+      return 'stone'
+      break;
+      case 'semi_black stone':
+      case 'semi_white stone':
+      return 'semi_stone'
+      break;
+      default:
+      return 'empty'
+    }
+  }
   </script>
+
+  <!--
+  빈 자리&불투명돌 없는 자리에는 투명돌 놓을 수 있음
+  마우스 떠나면 투명돌 삭제
+
+  불투명돌 있는 자리에는 투명돌 놓을 수 없음
+
+  빈자리는 투명돌 / 투명돌 자리는 불투명돌
+
+
+  투명돌만 있는 자리에는 불투명돌 놓을 수 있음
+  불투명돌 있는 자리엔 불투명돌 놓을 수 없음
+
+
+-->
 
 
 </body>
